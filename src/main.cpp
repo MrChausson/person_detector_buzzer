@@ -26,6 +26,9 @@
 
 #include "esp_camera.h"
 
+// for screen
+#include <Wire.h>
+
 // Select camera model - find more camera models in camera_pins.h file here
 // https://github.com/espressif/arduino-esp32/blob/master/libraries/ESP32/examples/Camera/CameraWebServer/camera_pins.h
 
@@ -207,6 +210,7 @@ void loop()
                 result.timing.dsp, result.timing.classification, result.timing.anomaly);
 
 #if EI_CLASSIFIER_OBJECT_DETECTION == 1
+    int cars_found = 0;
     bool bb_found = result.bounding_boxes[0].value > 0;
     for (size_t ix = 0; ix < result.bounding_boxes_count; ix++) {
         auto bb = result.bounding_boxes[ix];
@@ -214,10 +218,12 @@ void loop()
             continue;
         }
         ei_printf("    %s (%f) [ x: %u, y: %u, width: %u, height: %u ]\n", bb.label, bb.value, bb.x, bb.y, bb.width, bb.height);
+        cars_found++;
     }
     if (!bb_found) {
         ei_printf("    No objects found\n");
     }
+    ei_printf("    %d Badly parked cars found\n", cars_found);
 #else
     for (size_t ix = 0; ix < EI_CLASSIFIER_LABEL_COUNT; ix++) {
         ei_printf("    %s: %.5f\n", result.classification[ix].label,
