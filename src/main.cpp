@@ -77,6 +77,10 @@
 #error "Camera model not selected"
 #endif
 
+// define leds
+
+#define LED1 2
+
 /* Constant defines -------------------------------------------------------- */
 #define EI_CAMERA_RAW_FRAME_BUFFER_COLS           320
 #define EI_CAMERA_RAW_FRAME_BUFFER_ROWS           240
@@ -149,6 +153,9 @@ static int ei_camera_get_data(size_t offset, size_t length, float *out_ptr)
 */
 void setup()
 {
+    // LED
+    pinMode(LED1,OUTPUT);
+
     // put your setup code here, to run once:
     Serial.begin(115200);
     //comment out the below line to start inference immediately after upload
@@ -219,9 +226,11 @@ void loop()
         }
         ei_printf("    %s (%f) [ x: %u, y: %u, width: %u, height: %u ]\n", bb.label, bb.value, bb.x, bb.y, bb.width, bb.height);
         cars_found++;
+        digitalWrite(LED1,HIGH);
     }
     if (!bb_found) {
         ei_printf("    No objects found\n");
+        digitalWrite(LED1,LOW);
     }
     ei_printf("    %d Badly parked cars found\n", cars_found);
 #else
