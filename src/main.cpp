@@ -80,6 +80,7 @@
 // define leds
 
 #define LED1 2
+#define LED2 14
 
 /* Constant defines -------------------------------------------------------- */
 #define EI_CAMERA_RAW_FRAME_BUFFER_COLS           320
@@ -155,6 +156,7 @@ void setup()
 {
     // LED
     pinMode(LED1,OUTPUT);
+    pinMode(LED2,OUTPUT);
 
     // put your setup code here, to run once:
     Serial.begin(115200);
@@ -226,13 +228,22 @@ void loop()
         }
         ei_printf("    %s (%f) [ x: %u, y: %u, width: %u, height: %u ]\n", bb.label, bb.value, bb.x, bb.y, bb.width, bb.height);
         cars_found++;
-        digitalWrite(LED1,HIGH);
     }
     if (!bb_found) {
         ei_printf("    No objects found\n");
-        digitalWrite(LED1,LOW);
     }
     ei_printf("    %d Badly parked cars found\n", cars_found);
+    if (cars_found > 1) {
+        digitalWrite(LED1,HIGH);
+        digitalWrite(LED2,HIGH);
+    } else if (cars_found > 0) {
+        digitalWrite(LED1,HIGH);
+        digitalWrite(LED2,LOW);
+    }
+    else {
+        digitalWrite(LED1,LOW);
+        digitalWrite(LED2,LOW);
+    }
 #else
     for (size_t ix = 0; ix < EI_CLASSIFIER_LABEL_COUNT; ix++) {
         ei_printf("    %s: %.5f\n", result.classification[ix].label,
