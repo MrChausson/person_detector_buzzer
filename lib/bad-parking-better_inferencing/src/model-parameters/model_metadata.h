@@ -55,7 +55,7 @@
 #define EI_CLASSIFIER_PROJECT_ID                 293682
 #define EI_CLASSIFIER_PROJECT_OWNER              "Clément Chausson"
 #define EI_CLASSIFIER_PROJECT_NAME               "bad-parking-better"
-#define EI_CLASSIFIER_PROJECT_DEPLOY_VERSION     4
+#define EI_CLASSIFIER_PROJECT_DEPLOY_VERSION     7
 #define EI_CLASSIFIER_NN_INPUT_FRAME_SIZE        27648
 #define EI_CLASSIFIER_RAW_SAMPLE_COUNT           9216
 #define EI_CLASSIFIER_RAW_SAMPLES_PER_FRAME      1
@@ -69,7 +69,6 @@
 #define EI_CLASSIFIER_HAS_ANOMALY                0
 #define EI_CLASSIFIER_FREQUENCY                  0
 #define EI_CLASSIFIER_HAS_MODEL_VARIABLES        1
-
 
 
 #define EI_CLASSIFIER_OBJECT_DETECTION             1
@@ -90,7 +89,7 @@
 
 #define EI_CLASSIFIER_QUANTIZATION_ENABLED          1
 
-#define EI_CLASSIFIER_COMPILED                      1
+#define EI_CLASSIFIER_COMPILED                      0
 #define EI_CLASSIFIER_HAS_TFLITE_OPS_RESOLVER       0
 
 #define EI_CLASSIFIER_LOAD_IMAGE_SCALING         0

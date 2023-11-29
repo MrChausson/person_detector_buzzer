@@ -25,7 +25,7 @@
 #include <stdint.h>
 #include "model_metadata.h"
 
-#include "tflite-model/tflite_learn_5_compiled.h"
+#include "tflite-model/tflite_learn_5.h"
 #include "edge-impulse-sdk/classifier/ei_model_types.h"
 #include "edge-impulse-sdk/classifier/inferencing_engines/engines.h"
 
@@ -50,13 +50,11 @@ ei_model_dsp_t ei_dsp_blocks[ei_dsp_blocks_size] = {
         ei_dsp_config_3_axes_size
     }
 };
-const ei_config_tflite_eon_graph_t ei_config_tflite_graph_5 = {
+const ei_config_tflite_graph_t ei_config_tflite_graph_5 = {
     .implementation_version = 1,
-    .model_init = &tflite_learn_5_init,
-    .model_invoke = &tflite_learn_5_invoke,
-    .model_reset = &tflite_learn_5_reset,
-    .model_input = &tflite_learn_5_input,
-    .model_output = &tflite_learn_5_output,
+    .model = tflite_learn_5,
+    .model_size = tflite_learn_5_len,
+    .arena_size = tflite_learn_5_arena_size
 };
 
 const ei_learning_block_config_tflite_graph_t ei_learning_block_config_5 = {
@@ -68,7 +66,7 @@ const ei_learning_block_config_tflite_graph_t ei_learning_block_config_5 = {
     .output_labels_tensor = 1,
     .output_score_tensor = 2,
     .quantized = 1,
-    .compiled = 1,
+    .compiled = 0,
     .graph_config = (void*)&ei_config_tflite_graph_5
 };
 
@@ -90,11 +88,11 @@ const ei_model_performance_calibration_t ei_calibration = {
     0   /* Don't use flags */
 };
 
-const ei_impulse_t impulse_293682_4 = {
+const ei_impulse_t impulse_293682_7 = {
     .project_id = 293682,
     .project_owner = "Clément Chausson",
     .project_name = "bad-parking-better",
-    .deploy_version = 4,
+    .deploy_version = 7,
 
     .nn_input_frame_size = 27648,
     .raw_sample_count = 9216,
@@ -131,6 +129,6 @@ const ei_impulse_t impulse_293682_4 = {
     .categories = ei_classifier_inferencing_categories
 };
 
-const ei_impulse_t ei_default_impulse = impulse_293682_4;
+const ei_impulse_t ei_default_impulse = impulse_293682_7;
 
 #endif // _EI_CLASSIFIER_MODEL_METADATA_H_
